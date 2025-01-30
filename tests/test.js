@@ -31,6 +31,7 @@ apple.styles = `
     font-size: 4rem;
     font-family: monospace;
 `
+apple.addStyle("font-weight", "bold");
 // let hello = ".__sysStyled {" + apple.styles + "}";
 // console.log(hello)
 let vegitables = new ListCmpt("vegiList", "ul", ["Tomato", "Onion", "Potato"]);
@@ -39,6 +40,17 @@ let fruits = new ListCmpt("fruitList", "ul", ["Orange", "Papaya", "Carrot"]);
 let displayContainer = new ContainerCmpt("displayContainer", [apple, vegitables], {id:"second-display"});
 
 
+let mango = new HtmlCodeCmpt("fruit", "<h1 id='mango'>MANGO</h1>");
+mango.styles = `
+    #mango {
+        color: orange;
+        font-family: cursive;
+        font-size: 2rem;
+    }
+`
+let mangoContainer = new ContainerCmpt("manogoCantainer", mango)
+
+bodyElmt.insertAdjacentElement("afterbegin", mangoContainer.getHtmlElmt());
 bodyElmt.insertAdjacentElement("afterbegin", displayContainer.getHtmlElmt());
 displayContainer.hookeds["vegiList"] = fruits;
 displayContainer.refresh();

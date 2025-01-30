@@ -56,7 +56,7 @@ export class Cmpt{
         if (Object.keys(this.hookeds).length > 0){
             for (let attachmentName in this.hookeds){
                 if (this.hookeds[attachmentName].isHtmlCodeCmpt){
-                    this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCode();
+                    this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCodeWithStyles();
                 }
                 else{
                     this._hooks[attachmentName].innerHTML = "";
@@ -79,10 +79,6 @@ export class Cmpt{
     }
 
     addStyle(property, value){
-        // this.styles = this.styles.trimEnd();
-        // if ((!(this.styles.endsWith(";"))) && (this.styles !== "")){ 
-        //     this.styles += ";\n";
-        // }
         this._styles += "\n" + property + ": " + String(value) + ";";
     }
 

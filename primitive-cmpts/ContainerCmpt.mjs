@@ -1,5 +1,5 @@
 import { Cmpt } from "./Cmpt.mjs";
-import { setContentToHtmlElmt } from "./utilities.mjs";
+import { setAttributesToHtmlElmt, setContentToHtmlElmt } from "./utilities.mjs";
 
 export class ContainerCmpt extends Cmpt{
     constructor(name, contents, attributes={}){
