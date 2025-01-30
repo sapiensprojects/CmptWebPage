@@ -1,0 +1,19 @@
+{
+  "name": "cmptwebpage",
+  "version": "1.0.0",
+  "description": "Help in Building Webpage with Components (Make Component Template one time Use multiple times)",
+  "main": "CmptWebPage.js",
+  "directories": {
+    "test": "tests",
+    "primitive components": "primitive-cmpts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "CmptWebPage",
+    "ComponentWebPage"
+  ],
+  "author": "Dhiraj Kumar Gupta",
+  "license": "ISC"
+}
