@@ -1,1 +1,2 @@
-export  * as CmptWebPage  from "./primitive-cmpts/primitive-cmpts.mjs";
+import  * as CmptWebPage  from "./primitive-cmpts/primitive-cmpts.mjs";
+// let CmptWebPage = CmptWebPage;
