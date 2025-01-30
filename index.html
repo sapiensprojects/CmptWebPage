@@ -11,7 +11,8 @@
         }
     </style>
     <script>
-        let code = "<script src='https://sapiensprojects.github.io/CmptWebPage/CmptWebPage.js' type='module'>" + "</" + "script>";
+        let code = String.raw(`import { CmptWebPage } from "https://sapiensprojects.github.io/CmptWebPage/CmptWebPage.js";
+`)
         document.querySelector("pre").innerText = code;        
     </script>
 </body>
