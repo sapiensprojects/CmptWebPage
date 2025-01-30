@@ -25,6 +25,14 @@ webList.hookeds["dhirajWebsite"] = abhishekWebsite;
 
 
 let apple = new ParaCmpt("apple", "Apple")
+apple.styles = `
+    margin: 0px;
+    padding: 0px;
+    font-size: 4rem;
+    font-family: monospace;
+`
+// let hello = ".__sysStyled {" + apple.styles + "}";
+// console.log(hello)
 let vegitables = new ListCmpt("vegiList", "ul", ["Tomato", "Onion", "Potato"]);
 let fruits = new ListCmpt("fruitList", "ul", ["Orange", "Papaya", "Carrot"]);
 

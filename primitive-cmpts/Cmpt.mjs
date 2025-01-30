@@ -15,6 +15,7 @@ export class Cmpt{
         this._attributes = attributes;
         this._hooks = {};
         this.hookeds = {};
+        this._styles = "";
 
         this._configs = configs;
 
@@ -44,12 +45,18 @@ export class Cmpt{
     get attributes(){return this._attributes;}
 
 
+    set styles(text){
+        text = text.trim();
+        if (!(text.endsWith(";"))){text += ";"}
+        this._styles = text;
+    }
+
 
     refresh(){
         if (Object.keys(this.hookeds).length > 0){
             for (let attachmentName in this.hookeds){
                 if (this.hookeds[attachmentName].isHtmlCodeCmpt){
-                    this._hooks[attachmentName].innerHtml = this.hookeds[attachmentName].getHtmlCode();
+                    this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCode();
                 }
                 else{
                     this._hooks[attachmentName].innerHTML = "";
@@ -57,6 +64,26 @@ export class Cmpt{
                 }
             }
         }
+
+        // Adding styles
+        if (this._styles === "") {return}
+        let styleElmt = this._rootElmt.querySelector(".__sysStyled");
+        if (!(styleElmt)){
+            styleElmt = document.createElement("style");
+            styleElmt.classList += "__sysStyled";
+            this._rootElmt.appendChild(styleElmt);
+        }
+        console.log(this._styles);
+        let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n";
+        styleElmt.innerHTML = styleStr;
+    }
+
+    addStyle(property, value){
+        // this.styles = this.styles.trimEnd();
+        // if ((!(this.styles.endsWith(";"))) && (this.styles !== "")){ 
+        //     this.styles += ";\n";
+        // }
+        this._styles += "\n" + property + ": " + String(value) + ";";
     }
 
     getHtmlElmt(){        
@@ -64,7 +91,9 @@ export class Cmpt{
         return this._rootElmt;
     }
 
-    getHtmlCodeWithStyle(){return "";}
+    getHtmlCodeWithStyle(){
+
+    }
 
     cloneCmpt(name=null){
         console.log("[*] Feature is under construction...")
@@ -120,4 +149,6 @@ export class Cmpt{
     _update_rootElmtAttributes(){
         setAttributesToHtmlElmt(this._attributes, this._rootElmt);
     }
+
+    static CSSify(dict){}
 }
