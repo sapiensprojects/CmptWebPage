@@ -52,28 +52,49 @@ export class Cmpt{
     }
 
 
-    refresh(){
-        if (Object.keys(this.hookeds).length > 0){
-            for (let attachmentName in this.hookeds){
-                if (this.hookeds[attachmentName].isHtmlCodeCmpt){
-                    this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCodeWithStyles();
-                }
-                else{
-                    this._hooks[attachmentName].innerHTML = "";
-                    this._hooks[attachmentName].appendChild(this.hookeds[attachmentName].getHtmlElmt());
-                }
+    addAttachment(attachmentName, hook, hooked){
+        this._hooks[attachmentName] = hook;
+        this.hookeds[attachmentName] = hooked;
+    }
+
+    getAttachment(attachmentName, hook=true){
+        if (hook){
+            return [this._hooks[attchmentName], this.hookeds[attachmentName]];
+        }
+        else {
+            return this.hookeds[attachmentName];
+        }
+    }
+
+    removeAttachment(attachmentName){
+        delete this._hooks[attachmentName];
+        delete this.hookeds[attachmentName];
+    }
+
+
+    refresh(styles=true){
+        for (let attachmentName in this.hookeds){
+            if (this.hookeds[attachmentName].isHtmlCodeCmpt){
+                this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCode(true);
+            }
+            else{
+                this._hooks[attachmentName].innerHTML = "";
+                this._hooks[attachmentName].appendChild(this.hookeds[attachmentName].getHtmlElmt(true));
             }
         }
 
+
         // Adding styles
-        if (this._styles === "") {return}
+        if ((this._styles === "") || (!(styles))) {return}
+        
         let styleElmt = this._rootElmt.querySelector(".__sysStyled");
+        
         if (!(styleElmt)){
             styleElmt = document.createElement("style");
             styleElmt.classList += "__sysStyled";
             this._rootElmt.appendChild(styleElmt);
         }
-        console.log(this._styles);
+
         let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n";
         styleElmt.innerHTML = styleStr;
     }
@@ -82,16 +103,13 @@ export class Cmpt{
         this._styles += "\n" + property + ": " + String(value) + ";";
     }
 
-    getHtmlElmt(){        
-        this.refresh();
+    getHtmlElmt(styles=true){        
+        this.refresh(styles);
         return this._rootElmt;
     }
 
-    getHtmlCodeWithStyle(){
 
-    }
-
-    cloneCmpt(name=null){
+    cloneCmpt(name=null, deep=true){
         console.log("[*] Feature is under construction...")
         return null;
         
@@ -146,5 +164,16 @@ export class Cmpt{
         setAttributesToHtmlElmt(this._attributes, this._rootElmt);
     }
 
-    static CSSify(dict){}
+    // static addSysStylesInHtmlElmt(styles, htmlElmt){
+    //     let styleElmt = htmlElmt.querySelector(".__sysStyled");
+        
+    //     if (!(styleElmt)){
+    //         styleElmt = document.createElement("style");
+    //         styleElmt.classList += "__sysStyled";
+    //         htmlElmt.appendChild(styleElmt);
+    //     }
+
+    //     let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n";
+    //     styleElmt.innerHTML = styleStr;
+    // }
 }

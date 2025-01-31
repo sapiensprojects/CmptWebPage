@@ -8,6 +8,64 @@ export class ContainerCmpt extends Cmpt{
         super(name, "container", rootElmt, attachments, attributes);
     }
 
+    // METHODS
+    prependContent(content){
+        let hook = document.createElement("div");
+        let attachment = setContentToHtmlElmt(content, hook);
+        this.rootElmt.insertAdjacentElement("afterbegin", hook);
+        let attachmentNames = Object.keys(attachment)
+        if (attachmentNames.length > 0){
+            this.addAttachment(
+                attachmentNames[0],
+                attachment[attachmentNames[0]][0],
+                attachment[attachmentNames[0]][1]
+            )
+        }
+    }
+
+    insertContentBefore(content, attachmentName){
+        let hook = document.createElement("div");
+        let attachment = setContentToHtmlElmt(content, hook);
+        let adjacentElmt = this._hooks[attachmentName];
+        adjacentElmt.insertAdjacentElement("beforebegin", hook);
+        let attachmentNames = Object.keys(attachment)
+        if (attachmentNames.length > 0){
+            this.addAttachment(
+                attachmentNames[0],
+                attachment[attachmentNames[0]][0],
+                attachment[attachmentNames[0]][1]
+            )
+        }
+    }
+
+    insertContentAfter(content, attachmentName){
+        let hook = document.createElement("div");
+        let attachment = setContentToHtmlElmt(content, hook);
+        let adjacentElmt = this._hooks[attachmentName];
+        adjacentElmt.insertAdjacentElement("afterend", hook);
+        let attachmentNames = Object.keys(attachment)
+        if (attachmentNames.length > 0){
+            this.addAttachment(
+                attachmentNames[0],
+                attachment[attachmentNames[0]][0],
+                attachment[attachmentNames[0]][1]
+            )
+        }
+    }
+    appendContent(content){
+        let hook = document.createElement("div");
+        let attachment = setContentToHtmlElmt(content, hook);
+        this.rootElmt.insertAdjacentElement("beforeend", hook);
+        let attachmentNames = Object.keys(attachment)
+        if (attachmentNames.length > 0){
+            this.addAttachment(
+                attachmentNames[0],
+                attachment[attachmentNames[0]][0],
+                attachment[attachmentNames[0]][1]
+            )
+        }
+    }
+
 
     static _setContents(contents, containerElmt){
         let attachments = {};

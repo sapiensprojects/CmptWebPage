@@ -9,24 +9,39 @@ export class HtmlCodeCmpt extends Cmpt{
         this.parentAttributes = parentAttributes;
         this._styles = "";
     }
+    //GETTERS
+    get styles(){return this._styles;}
 
+    // SETTERS
+
+    // @overwriting.setter "styles"
     set styles(text){
         text = text.trim();
-        // if (!(text.endsWith(";"))){text += ";"}
         this._styles = text;
     }
 
-    addStyle(property, value){
-        this._styles += "\n" + property + ": " + String(value) + ";";
+    // METHODS
+    appendStyles(text){
+        text = text.trim();
+        this._styles += "\n" + text;
     }
 
-    getHtmlCode(){return this.htmlCode;}
-
-    getHtmlCodeWithStyles(){
-        if (this.styles === "") {return this.getHtmlCode();}
-        let htmlCodeWithStyle = this.htmlCode + "\n" + "<style class='__sysStyled'>" + "\n" + this._styles + "\n" + "</style>\n";
-        return htmlCodeWithStyle;
+    getHtmlCode(styles=true){
+        let code = this.htmlCode
+        if ((styles) && (this._styles !== "")){
+            code = code + "\n" + "<style class='__sysStyled'>" + "\n" + this._styles + "\n" + "</style>\n";
+        }
+        return code;
     }
+
+
+    // DISABLING PARENT METHODS
+    addStyle(property, value){return null;}
     getHtmlElmt(){return null;}
     getHtmlCodeWithStyle(){return null;}
+    refresh(styles=false){return null;}
+    addAttachment(attachmentName, hook, hooked){return null;}
+    getAttachment(attachmentName, hook=true){return null;}
+    removeAttachment(attachmentName){return null;}
+    cloneCmpt(name=null, deep=true){return null;}
 }
