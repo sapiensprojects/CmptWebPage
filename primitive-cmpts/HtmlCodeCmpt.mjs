@@ -23,6 +23,7 @@ export class HtmlCodeCmpt extends Cmpt{
     getHtmlCode(){return this.htmlCode;}
 
     getHtmlCodeWithStyles(){
+        if (this.styles === "") {return this.getHtmlCode();}
         let htmlCodeWithStyle = this.htmlCode + "\n" + "<style class='__sysStyled'>" + "\n" + this._styles + "\n" + "</style>\n";
         return htmlCodeWithStyle;
     }
