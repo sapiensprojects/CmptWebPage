@@ -38,7 +38,6 @@ export class HtmlCodeCmpt extends Cmpt{
     // DISABLING PARENT METHODS
     addStyle(property, value){return null;}
     getHtmlElmt(){return null;}
-    getHtmlCodeWithStyle(){return null;}
     refresh(styles=false){return null;}
     addAttachment(attachmentName, hook, hooked){return null;}
     getAttachment(attachmentName, hook=true){return null;}

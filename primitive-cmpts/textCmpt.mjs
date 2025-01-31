@@ -12,6 +12,13 @@ export class TextCmpt extends Cmpt{
     getHtmlCode(){return this.text;}
     getText(){return this.text;}
     
+
+    // DISABLING PARENT METHODS
+    addStyle(property, value){return null;}
     getHtmlElmt(){return null;}
-    getHtmlCodeWithStyle(){return null;}
+    refresh(styles=false){return null;}
+    addAttachment(attachmentName, hook, hooked){return null;}
+    getAttachment(attachmentName, hook=true){return null;}
+    removeAttachment(attachmentName){return null;}
+    cloneCmpt(name=null, deep=true){return null;}
 }
