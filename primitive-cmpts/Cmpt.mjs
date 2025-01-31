@@ -100,6 +100,7 @@ export class Cmpt{
     }
 
     refreshAttachment(attachmentName, refreshHooked=false){
+        console.log(Object.keys(this.hookeds))
         if (!(Object.keys(this.hookeds).includes(attachmentName))){ return true }
         if (refreshHooked){this.hookeds[attachmentName].refresh(true)}
         console.log(attachmentName, " refreshed...")
