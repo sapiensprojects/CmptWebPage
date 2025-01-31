@@ -66,6 +66,15 @@ export class ContainerCmpt extends Cmpt{
         }
     }
 
+    removeContent(name){
+        let hook = this._hooks[name];
+        delete this._hooks[name];
+        delete this.hookeds[name];
+        if (hook){
+            hook.parentElement.removeChild(hook);
+        }
+    }
+
 
     static _setContents(contents, containerElmt){
         let attachments = {};
