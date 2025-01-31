@@ -5,6 +5,7 @@ import {
     ContainerCmpt,
     TextCmpt,
     HtmlCodeCmpt,
+    TitleCmpt,
 } from "../primitive-cmpts/primitive-cmpts.mjs";
 
 let shubham = new ParaCmpt("shubham", "SHUBHAM");
@@ -34,4 +35,10 @@ function removeRohit(){
 }
 
 
+let stateTitle = new TitleCmpt("stateTitle", "Dhiraj");
+
+
+document.querySelector("head").appendChild(stateTitle.getHtmlElmt());
 document.querySelector("button").addEventListener("click", removeRohit)
+
+stateTitle.text = "Not Dhiraj"; // live update title of page, no need of refresh
