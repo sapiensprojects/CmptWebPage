@@ -99,6 +99,19 @@ export class Cmpt{
         styleElmt.innerHTML = styleStr;
     }
 
+    refreshAttachment(attachmentName, refreshHooked=false){
+        if (!(Object.keys(this.hookeds).includes(attachmentName))){ return true }
+        if (refreshHooked){this.hookeds[attachmentName].refresh(true)}
+        
+        if (this.hookeds[attachmentName].isHtmlCodeCmpt){
+            this._hooks[attachmentName].innerHTML = this.hookeds[attachmentName].getHtmlCode(true);
+        }
+        else{
+            this._hooks[attachmentName].innerHTML = "";
+            this._hooks[attachmentName].appendChild(this.hookeds[attachmentName].getHtmlElmt(true));
+        }
+    }
+
     addStyle(property, value){
         this._styles += "\n" + property + ": " + String(value) + ";";
     }
