@@ -129,24 +129,24 @@ export class Cmpt{
             this._rootElmt.appendChild(styleElmt);
         }
 
+        let rootStyles = "";
+
         // Adding self styles
-        let selfStyles = `
-            .${this.cmptId} {
-                ${this._styles}
-            }
-        `;
+        if (this._styles !== ""){
+            rootStyles += "\n" + "." + this.cmptId + " {\n" + this._styles + "\n}";
+        }
+        
+        // Adding hook styles
+        if (this._hookStyles !== ""){
+            rootStyles +=  "\n" + "." + this.getClassNameForHook() + " {\n" + this._hookStyles + "\n}";
+        }
 
         // Adding raw styles
-        let rawStyles = "\n" + this._rawStyles;
+        if (this._rawStyles !== ""){
+            rootStyles += "\n" + this.rawStyles;
+        }
 
-        // Adding hook styles
-        let hookStyles = `
-            .${this.getClassNameForHook} {
-                ${this._hookStyles}
-            }
-        `;
-
-        let rootStyles = selfStyles + rawStyles + hookStyles;
+        rootStyles += "\n";
 
         // Updating root styles
         styleElmt.innerHTML = rootStyles;
