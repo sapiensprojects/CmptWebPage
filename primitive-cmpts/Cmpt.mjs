@@ -17,6 +17,7 @@ export class Cmpt{
         this.hookeds = {};
         this._styles = "";
         this._rawStyles = "";
+        this._hookStyles = "";
 
         this._configs = configs;
 
@@ -37,17 +38,18 @@ export class Cmpt{
         if (attachments) {this._resolveAttachments(attachments);}
     }
 
-
+    // GETTERS
     get isCmpt(){return this._isCmpt;}
     get cmptName(){return this._cmptName}
     get cmptType(){return this._cmptType;}
     get cmptId(){return this._cmptId;}
     get rootElmt(){return this._rootElmt;}
     get attributes(){return this._attributes;}
-
-    // GETTERS
+    get hooks(){return this._hooks;}
     get styles(){return this._styles}
     get rawStyles(){return this._rawStyles}
+    get hookStyles(){return this._hookStyles;}
+
 
 
     set styles(text){
@@ -59,6 +61,12 @@ export class Cmpt{
     set rawStyles(text){
         text = text.trim();
         this._rawStyles = text;
+    }
+
+    set hookStyles(text){
+        text = text.trim();
+        if (!(text.endsWith(";"))){text += ";"}
+        this._hookStyles = text;
     }
 
 
@@ -95,18 +103,53 @@ export class Cmpt{
 
 
         // Adding styles
-        if (((this._styles === "") && (this._rawStyles === "")) || (!(styles))) {return}
+        if (styles){this.refreshStyles()}
+        // if (((this._styles === "") && (this._rawStyles === "")) || (!(styles))) {return}
         
-        let styleElmt = this._rootElmt.querySelector(".__sysStyled" + this.cmptId);
+        // let styleElmt = this._rootElmt.querySelector("." + this.getClassNameForStyle());
+        
+        // if (!(styleElmt)){
+        //     styleElmt = document.createElement("style");
+        //     styleElmt.classList += this.getClassNameForStyle();
+        //     this._rootElmt.appendChild(styleElmt);
+        // }
+
+        // let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n" + this.rawStyles + "\n";
+        // styleElmt.innerHTML = styleStr;
+    }
+
+    refreshStyles(){
+        if ((this._styles === "") && (this._rawStyles === "") && (this._hookStyles === "")){return null}
+
+        let styleElmt = this._rootElmt.querySelector("." + this.getClassNameForStyle());
         
         if (!(styleElmt)){
             styleElmt = document.createElement("style");
-            styleElmt.classList += "__sysStyled" + this.cmptId;
+            styleElmt.classList += this.getClassNameForStyle();
             this._rootElmt.appendChild(styleElmt);
         }
 
-        let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n" + this.rawStyles + "\n";
-        styleElmt.innerHTML = styleStr;
+        // Adding self styles
+        let selfStyles = `
+            .${this.cmptId} {
+                ${this._styles}
+            }
+        `;
+
+        // Adding raw styles
+        let rawStyles = "\n" + this._rawStyles;
+
+        // Adding hook styles
+        let hookStyles = `
+            .${this.getClassNameForHook} {
+                ${this._hookStyles}
+            }
+        `;
+
+        let rootStyles = selfStyles + rawStyles + hookStyles;
+
+        // Updating root styles
+        styleElmt.innerHTML = rootStyles;
     }
 
     refreshAttachment(attachmentName, refreshHooked=false){
@@ -172,7 +215,6 @@ export class Cmpt{
     }
 
 
-
     _getUniqueCmptId(){return `__cmptId${Cmpt.count}`;}
 
     _resolveAttachments(attachments){
@@ -198,4 +240,13 @@ export class Cmpt{
     //     let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n";
     //     styleElmt.innerHTML = styleStr;
     // }
+
+
+    getClassNameForHook(){
+        return this.cmptId + "_hook";
+    }
+
+    getClassNameForStyle(){
+        return "__sysStyled" + this.cmptId;
+    }
 }
