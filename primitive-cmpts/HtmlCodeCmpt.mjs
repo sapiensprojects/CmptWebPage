@@ -29,7 +29,7 @@ export class HtmlCodeCmpt extends Cmpt{
     getHtmlCode(styles=true){
         let code = this.htmlCode
         if ((styles) && (this._styles !== "")){
-            code = code + "\n" + "<style class='__sysStyled'>" + "\n" + this._styles + "\n" + "</style>\n";
+            code = code + "\n" + `<style class='__sysStyled${this.cmptId}'>` + "\n" + this._styles + "\n" + "</style>\n";
         }
         return code;
     }

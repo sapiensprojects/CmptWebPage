@@ -87,11 +87,11 @@ export class Cmpt{
         // Adding styles
         if ((this._styles === "") || (!(styles))) {return}
         
-        let styleElmt = this._rootElmt.querySelector(".__sysStyled");
+        let styleElmt = this._rootElmt.querySelector(".__sysStyled"+this.cmptId);
         
         if (!(styleElmt)){
             styleElmt = document.createElement("style");
-            styleElmt.classList += "__sysStyled";
+            styleElmt.classList += "__sysStyled+this.cmptId";
             this._rootElmt.appendChild(styleElmt);
         }
 
