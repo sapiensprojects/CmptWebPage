@@ -95,7 +95,7 @@ export class Cmpt{
 
 
         // Adding styles
-        if ((this._styles === "") || (!(styles))) {return}
+        if (((this._styles === "") && (this._rawStyles === "")) || (!(styles))) {return}
         
         let styleElmt = this._rootElmt.querySelector(".__sysStyled" + this.cmptId);
         
