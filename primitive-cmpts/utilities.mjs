@@ -1,6 +1,13 @@
 export function setAttributesToHtmlElmt(attributes, elmt){
     for (let attrKey in attributes){
-        elmt.setAttribute(attrKey, attributes[attrKey]);
+        let attrValue = '';
+        if (attributes[attrKey] instanceof Array){
+            for (let value of attributes[attrKey]){
+                attrValue += value + " ";
+            }
+        }
+        else {attrValue = attributes[attrKey]}
+        elmt.setAttribute(attrKey, attrValue);
     }
 }
 
