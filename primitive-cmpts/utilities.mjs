@@ -18,16 +18,20 @@ export function setContentToHtmlElmt(content, elmt){
         elmt.textContent = content;
     }
     else if (content.isTextCmpt){
+        elmt.classList += content.getClassNameForHook();
         setAttributesToHtmlElmt(content.parentAttributes, elmt);
         elmt.textContent = content.text;
     }
     else if (content.isHtmlCodeCmpt){
+        elmt.classList += content.getClassNameForHook();
         setAttributesToHtmlElmt(content.parentAttributes, elmt);
         attachments[content.cmptName] = [elmt, content];
     }
     else if (content.isCmpt){
+        elmt.classList += content.getClassNameForHook();
         attachments[content.cmptName] = [elmt, content];
     }
+
 
     return attachments;
 }
