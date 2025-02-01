@@ -16,6 +16,7 @@ export class Cmpt{
         this._hooks = {};
         this.hookeds = {};
         this._styles = "";
+        this._rawStyles = "";
 
         this._configs = configs;
 
@@ -44,11 +45,20 @@ export class Cmpt{
     get rootElmt(){return this._rootElmt;}
     get attributes(){return this._attributes;}
 
+    // GETTERS
+    get styles(){return this._styles}
+    get rawStyles(){return this._rawStyles}
+
 
     set styles(text){
         text = text.trim();
         if (!(text.endsWith(";"))){text += ";"}
         this._styles = text;
+    }
+
+    set rawStyles(text){
+        text = text.trim();
+        this._rawStyles = text;
     }
 
 
@@ -95,7 +105,7 @@ export class Cmpt{
             this._rootElmt.appendChild(styleElmt);
         }
 
-        let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n";
+        let styleStr = "\n." + this._cmptId + " {\n" + this._styles + "\n}\n" + this.rawStyles + "\n";
         styleElmt.innerHTML = styleStr;
     }
 
